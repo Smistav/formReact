@@ -28,6 +28,11 @@ function App() {
   const submitStep = () => {
     // Отправили
   }
+  const isStepValid = (step: number): boolean => {
+    if (step === 1) return Boolean(data.firstName && data.secondName && data.email)
+    if (step === 2) return Boolean(data.city && data.country && data.zip)
+    return true
+  }
   return (
     <div>
       <h1>formReact</h1>
@@ -37,7 +42,7 @@ function App() {
       {stepNumber === 3 && <Step3 data={data} />}
       <div>
         {stepNumber > 1 && <button onClick={previosStep}>Назад</button>}
-        {stepNumber < 3 && <button onClick={nextStep}>Шаг {stepNumber + 1}</button>}
+        {stepNumber < 3 && <button onClick={nextStep} disabled={!isStepValid(stepNumber)}>Шаг {stepNumber + 1}</button>}
         {stepNumber === 3 && <button onClick={submitStep}>Отправить</button>}
       </div>
     </div>
